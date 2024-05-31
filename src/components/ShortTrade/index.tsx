@@ -13,11 +13,13 @@ import {
   usePublicClient,
   useWaitForTransactionReceipt,
   useWriteContract,
+  useSimulateContract,
 } from "wagmi";
-import { Account, Address } from "viem";
+import { Account, Address, parseUnits } from "viem";
 import Connect from "@components/Header/Connect";
 import { shortHelperABI } from "@utils/abis/shortHelper";
 import {
+  shortHelperContractAddress,
   THIRTY_MINUTES_IN_MS,
   wethAddress,
   wPowerPerpAddress,
@@ -35,23 +37,9 @@ const ShortTrade = () => {
   const [amountNum, setAmountNum] = useState<number>(0); // amount in number
   const [collateral, setCollateral] = useState<string>("225");
 
-  // Hooks
-  const { isConnected, address } = useAccount();
-  const client = usePublicClient();
-  const {
-    data: hash,
-    error,
-    isPending,
-    writeContract: openShortAsync,
-  } = useWriteContract();
-  const { isLoading: isTxnLoading, isSuccess: isTxnSuccess } =
-    useWaitForTransactionReceipt({
-      hash,
-    });
-
   // default values
-  const shortHelperContractAddress = process.env
-    .NEXT_PUBLIC_SHORT_HELPER_CONTRACT_ADDRESS as Address;
+  // const shortHelperContractAddress = process.env
+  //   .NEXT_PUBLIC_SHORT_HELPER_CONTRACT_ADDRESS as Address;
   const vaultId = 0;
   const uniNftId = 0;
 
@@ -62,39 +50,61 @@ const ShortTrade = () => {
     setAmountNum(amountNum);
   };
 
-  const handleExecution = async () => {
-    // Fetch latest block's timestamp
-    const block = await client?.getBlock();
-    const blocktimestamp =
-      Number(block?.timestamp.toString() + "000") + THIRTY_MINUTES_IN_MS;
+  // Hooks
+  const { isConnected, address } = useAccount();
 
-    console.log("blocktimestamp", blocktimestamp);
+  const {
+    data: hash,
+    error,
+    isPending,
+    writeContract: openShortAsync,
+  } = useWriteContract();
+
+  const { isLoading: isTxnLoading, isSuccess: isTxnSuccess } =
+    useWaitForTransactionReceipt({
+      hash,
+    });
+
+  const handleOpenShot = async () => {
+    // Fetch latest block's timestamp
+    // const client = usePublicClient();
+    // const block = await client?.getBlock();
+    // const blocktimestamp =
+    //   Number(block?.timestamp.toString() + "000") + THIRTY_MINUTES_IN_MS;
 
     const exactInputParams = {
       tokenIn: wPowerPerpAddress as `0x${string}`, // wPowerPerp address
       tokenOut: wethAddress as `0x${string}`, // WETH address
       fee: 3000,
       recipient: address as `0x${string}`, // Receiver
-      deadline: BigInt(blocktimestamp), // Deadline timestamp
+      deadline: BigInt(Math.floor(Date.now() / 1000) + 60 * 20), // Deadline timestamp
       amountIn: BigInt(1000), // amount of wPowerPerp to sell
       amountOutMinimum: BigInt(0), // minimum wETH to receive
       sqrtPriceLimitX96: BigInt(0),
     };
+    console.log("params", [
+      BigInt(vaultId),
+      parseUnits(amount, 18),
+      BigInt(uniNftId),
+      exactInputParams,
+    ]);
 
-    console.log("exactInputParams", exactInputParams);
-
-    openShortAsync({
-      address: shortHelperContractAddress,
-      abi: shortHelperABI,
-      functionName: "openShort",
-      args: [
-        BigInt(vaultId),
-        BigInt(amount),
-        BigInt(uniNftId),
-        exactInputParams,
-      ],
-    });
-  };
+    try {
+      await openShortAsync?.({
+        abi: shortHelperABI,
+        address: shortHelperContractAddress,
+        functionName: "openShort",
+        args: [
+          BigInt(vaultId),
+          parseUnits(amount, 18),
+          BigInt(uniNftId),
+          exactInputParams,
+        ],
+      });
+    } catch (error) {
+      console.log("error", error);
+    }
+  }
 
   return (
     <div className="flex flex-col gap-5 bg-white p-6 rounded-lg border max-w-sm mx-auto">
@@ -167,7 +177,7 @@ const ShortTrade = () => {
             type="submit"
             className="border rounded px-2 min-w-full py-2 font-semibold bg-blue-500 text-white hover:shadow-md hover:scale-[1.02] active:scale-100 transition-transform"
             disabled={isTxnLoading || isPending}
-            onClick={handleExecution}
+            onClick={handleOpenShot}
           >
             Deposit and Sell
           </Button>
