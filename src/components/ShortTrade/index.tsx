@@ -26,6 +26,11 @@ import {
 } from "@utils/constants";
 import BigNumber from "bignumber.js";
 
+enum TradeChoice {
+  Long = "Long",
+  Short = "Short",
+}
+
 enum Position {
   Open = "Open",
   Close = "Close",
@@ -33,6 +38,7 @@ enum Position {
 
 const ShortTrade = () => {
   const [positionType, setPositionType] = useState(Position.Open); // immutable for now
+  const [tradeChoice, setTradeChoice] = useState(TradeChoice.Short); // immutable for now
   const [amount, setAmount] = useState<string>("0"); // amount in input
   const [amountNum, setAmountNum] = useState<number>(0); // amount in number
   const [collateral, setCollateral] = useState<string>("225");
@@ -78,14 +84,15 @@ const ShortTrade = () => {
       fee: 3000,
       recipient: address as `0x${string}`, // Receiver
       deadline: BigInt(Math.floor(Date.now() / 1000) + 60 * 20), // Deadline timestamp
-      amountIn: BigInt(1000), // amount of wPowerPerp to sell
-      amountOutMinimum: BigInt(0), // minimum wETH to receive
+      amountIn: parseUnits(amount, 18), // amount of wPowerPerp to sell
+      amountOutMinimum: parseUnits("0", 18), // minimum wETH to receive
       sqrtPriceLimitX96: BigInt(0),
     };
+    
     console.log("params", [
-      BigInt(vaultId),
-      parseUnits(amount, 18),
-      BigInt(uniNftId),
+      BigInt(vaultId), // default 0
+      parseUnits(amount, 18), // Input Amount of wPowerPerp
+      BigInt(uniNftId), // default 0
       exactInputParams,
     ]);
 
@@ -104,10 +111,33 @@ const ShortTrade = () => {
     } catch (error) {
       console.log("error", error);
     }
-  }
+  };
 
   return (
     <div className="flex flex-col gap-5 bg-white p-6 rounded-lg border max-w-sm mx-auto">
+      <div className="flex flex-col gap-2">
+        <h2 className="text-base/6 font-medium">Trade</h2>
+        <div className="border gap-2 p-1 flex flex-row w-full rounded">
+          <Button
+            disabled={true}
+            className={clsx(
+              "px-6 w-1/2 py-2 rounded",
+              tradeChoice == TradeChoice.Long && "bg-green-200"
+            )}
+          >
+            {TradeChoice.Long}
+          </Button>
+          <Button
+            disabled={false}
+            className={clsx(
+              "px-6 w-1/2 py-2 rounded",
+              tradeChoice == TradeChoice.Short && "bg-red-200"
+            )}
+          >
+            {TradeChoice.Short}
+          </Button>
+        </div>
+      </div>
       <div className="flex flex-col gap-2">
         <h2 className="text-base/6 font-medium">Position</h2>
         <div className="border gap-2 p-1 flex flex-row w-full rounded">
@@ -209,15 +239,7 @@ const ShortTrade = () => {
           </p>
         </div>
       )}
-      {error && (
-        <div className="rounded-md border border-red-600 p-4">
-          <p className="pb-1 text-base font-medium leading-none">Error</p>
-          <p className="truncate text-wrap text-sm text-muted-foreground hover:text-clip">
-            Error: {(error as BaseError).shortMessage || error.message}
-          </p>
-        </div>
-      )}
-      {error && <p>Error: Transaction Failed</p>}
+      {error && <p className="p-2 bg-red-50">{(error as BaseError).shortMessage || error.message}</p>}
     </div>
   );
 };
