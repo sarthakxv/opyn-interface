@@ -1,3 +1,4 @@
+import BigNumber from "bignumber.js";
 import { Address } from "viem";
 
 // Addresses
@@ -6,4 +7,10 @@ export const wPowerPerpAddress = "0xcfC5C540fbEB69027256949572831A7D248d3a14" as
 export const shortHelperContractAddress = "0x5a3162db1fdb01a61b2885c2f173a0f25dc4ac9d" as Address;
 // export const wethAddress = "0xfFf9976782d46CC05630D1f6eBAb18b2324d6B14" as Address; // Universal WETH Contract on Sepolia
 
+export const NORMALIZATION_FACTOR = new BigNumber(Infinity);
+
+export const OSQUEETH_DECIMALS = 18;
+export const WETH_DECIMALS = 18;
+
+export const UNI_POOL_FEES = 3000;
 export const THIRTY_MINUTES_IN_MS = 60000 * 30;
