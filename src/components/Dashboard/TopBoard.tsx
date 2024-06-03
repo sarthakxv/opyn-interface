@@ -243,7 +243,7 @@ const TopBoard = () => {
                         />
                       ))}
                       <span className="h-6 flex justify-center w-6 bg-gray-500 rounded-full text-[8px] font-medium">
-                        +32
+                        +{group.more}
                       </span>
                     </div>
                     <span className="font-medium text-base leading-[18px]">

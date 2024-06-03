@@ -4,6 +4,7 @@ import { Inter } from "next/font/google";
 import TopBoard from "./TopBoard";
 import Lootbox from "./Lootbox";
 import Image from "next/image";
+import HoldTokens from "./HoldTokens";
 
 // Default font: Inter
 const inter = Inter({ subsets: ["latin"] });
@@ -20,6 +21,7 @@ const DashboardPage = () => {
       <div className="mx-auto w-full max-w-screen overflow-hidden">
         <TopBoard />
         <Lootbox />
+        <HoldTokens />
       </div>
     </div>
   );

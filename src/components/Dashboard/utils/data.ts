@@ -101,6 +101,7 @@ const groups = [
       "/images/profile_image.png",
     ],
     name: "TangoCharlie#123",
+    more: 32,
   },
   {
     users: [
@@ -109,6 +110,7 @@ const groups = [
       "/images/profile_image.png",
     ],
     name: "TangoCharlie#123",
+    more: 3,
   },
   {
     users: [
@@ -117,7 +119,31 @@ const groups = [
       "/images/profile_image.png",
     ],
     name: "TangoCharlie#123",
+    more: 21,
   },
 ];
 
-export { onlineUsers, groups, people, tournament };
+const holdTokensData = [
+  {
+    lineOne: "Mint your",
+    lineTwo: "Foxatar",
+    src: "/images/rare-card.svg",
+  },
+  {
+    lineOne: "Hold 10,000",
+    lineTwo: "FOX",
+    src: "/images/rare-card.svg",
+  },
+  {
+    lineOne: "Hold 250,000",
+    lineTwo: "FOX",
+    src: "/images/rare-card.svg",
+  },
+  {
+    lineOne: "Hold 250,000",
+    lineTwo: "FOX",
+    src: "/images/rare-card.svg",
+  },
+];
+
+export { onlineUsers, groups, people, tournament, holdTokensData };
