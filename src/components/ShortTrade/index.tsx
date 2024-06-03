@@ -1,3 +1,4 @@
+"use client";
 /*
 1. You just need to pass the amount oSQTH user wants to mint
 2. For _vaultId and `_uniNftId` parameter you can pass 0.
@@ -48,10 +49,13 @@ const ShortTrade = () => {
   const [collateralRatio, setCollateralRatio] = useState<string>("225");
 
   // SQTH
-  const amount = useMemo(() => new BigNumber(sqthTradeAmount), [sqthTradeAmount])
+  const amount = useMemo(
+    () => parseUnits(sqthTradeAmount, 18),
+    [sqthTradeAmount]
+  );
   // ETH
   const collateral = useMemo(
-    () => new BigNumber(ethTradeAmount),
+    () => parseUnits(ethTradeAmount, 18),
     [ethTradeAmount]
   );
 
@@ -84,11 +88,9 @@ const ShortTrade = () => {
     if (!address) return;
 
     // OSQUEETH Amount
-    const _amount = fromTokenAmount(amount, OSQUEETH_DECIMALS).multipliedBy(
-      NORMALIZATION_FACTOR
-    );
+    const _amount = amount;
     // wETH Collateral Amount
-    const ethAmt = fromTokenAmount(collateral, 18);
+    const ethAmt = collateral;
 
     // const exactInputParams = {
     //   tokenIn: wPowerPerpAddress as `0x${string}`, // wPowerPerp address
@@ -107,11 +109,11 @@ const ShortTrade = () => {
       tokenOut: wethAddress as `0x${string}`,
       fee: UNI_POOL_FEES,
       recipient: address,
-      deadline: Math.floor(Date.now() / 1000 + 86400), // uint256
-      amountIn: fromTokenAmount(amount, OSQUEETH_DECIMALS).toString(),
-      amountOutMinimum: fromTokenAmount(0, 18).toString(),
-      sqrtPriceLimitX96: 0,
-    }
+      deadline: BigInt(Math.floor(Date.now() / 1000 + 86400)), // uint256
+      amountIn: amount,
+      amountOutMinimum: BigInt(0),
+      sqrtPriceLimitX96: BigInt(0),
+    };
 
     console.log("params", [
       BigInt(vaultId), // default 0
@@ -126,11 +128,12 @@ const ShortTrade = () => {
         address: shortHelperContractAddress,
         functionName: "openShort",
         args: [
-          vaultId as any, // _vaultId
-          amount.toFixed(0) as any, // _powerPerpAmount
+          BigInt(vaultId), // _vaultId
+          amount, // _powerPerpAmount
           0 as any, // _uniNftId
-          exactInputParams as any,
+          exactInputParams,
         ],
+        value: ethAmt,
       });
     } catch (error) {
       console.log("error", error);

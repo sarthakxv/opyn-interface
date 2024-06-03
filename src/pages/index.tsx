@@ -1,18 +1,23 @@
 import Header from "@components/Header";
 import ShortTrade from "@components/ShortTrade";
+import clsx from "clsx";
 import { Inter } from "next/font/google";
 
+// Default font: Inter
 const inter = Inter({ subsets: ["latin"] });
 
 export default function Home() {
   return (
     <>
       <Header />
-      <main
-        className={`flex min-h-screen flex-col items-center justify-between px-8 py-12 md:p-24 ${inter.className}`}
+      <div
+        className={clsx(
+          "page-center flex flex-col items-center justify-between",
+          inter.className
+        )}
       >
         <ShortTrade />
-      </main>
+      </div>
     </>
   );
 }
