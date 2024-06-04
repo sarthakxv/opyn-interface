@@ -1,6 +1,7 @@
 import Image from "next/image";
 import { holdTokensLevelOne } from "../utils/data";
 import Token from "./Token";
+import moving, { Direction } from "../utils/moving";
 
 const LevelOne = () => {
   return (
@@ -27,10 +28,28 @@ const LevelOne = () => {
         0/15 completed
       </p>
       <hr className="border border-[#7D7D7D]" />
-      <div className="flex flex-row overflow-auto gap-24 mt-14 scroll-smooth">
+      <div className="tokens-one flex flex-row overflow-auto gap-24 mt-14 scroll-smooth">
         {holdTokensLevelOne.map((token) => (
           <Token token={token} key={token.lineOne} />
         ))}
+      </div>
+      <div className="flex flex-row gap-9 items-center justify-between max-w-fit mx-auto">
+        <button onClick={() => moving(Direction.left, "tokens-one")}>
+          <Image
+            src="/images/ArrowLeftCircle.svg"
+            alt="arrow left"
+            height={26.36}
+            width={26.36}
+          />
+        </button>
+        <button onClick={() => moving(Direction.right, "tokens-one")}>
+          <Image
+            src="/images/ArrowRightCircle.svg"
+            alt="arrow right"
+            height={26.36}
+            width={26.36}
+          />
+        </button>
       </div>
     </div>
   );
