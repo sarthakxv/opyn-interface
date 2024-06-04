@@ -1,5 +1,6 @@
 import Image from "next/image";
 import { holdTokensLevelOne } from "../utils/data";
+import Token from "./Token";
 
 const LevelOne = () => {
   return (
@@ -27,33 +28,8 @@ const LevelOne = () => {
       </p>
       <hr className="border border-[#7D7D7D]" />
       <div className="flex flex-row overflow-auto gap-24 mt-14 scroll-smooth">
-        {holdTokensLevelOne.map((token, index) => (
-          <div
-            className="relative min-w-[256px] sm:min-w-[408.16px]"
-            key={token.src}
-          >
-            <Image
-              src={token.src}
-              alt="rare-card"
-              width={408.16}
-              height={379}
-            />
-            <div className="absolute inset-0 px-4 mt-10 lg:mt-6 inline-flex w-full justify-between items-center">
-              <div className="flex flex-col gap-1">
-                <span className="font-normal text-base leading-5">TASK 1</span>
-                <p className="flex flex-col font-bold text-base lg:text-xl md:text-[26.4px] leading-9">
-                  <span>{token.lineOne}</span>
-                  <span>{token.lineTwo}</span>
-                </p>
-              </div>
-              <Image
-                src="/images/holdToken.svg"
-                width={76.98}
-                height={76.98}
-                alt="hold token"
-              />
-            </div>
-          </div>
+        {holdTokensLevelOne.map((token) => (
+          <Token token={token} key={token.lineOne} />
         ))}
       </div>
     </div>
