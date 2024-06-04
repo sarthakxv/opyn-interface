@@ -3,7 +3,6 @@ import Header from "./Header";
 import { Inter } from "next/font/google";
 import TopBoard from "./TopBoard";
 import Lootbox from "./Lootbox";
-import Image from "next/image";
 import HoldTokens from "./HoldTokens";
 import Footer from "./Footer";
 
@@ -23,8 +22,8 @@ const DashboardPage = () => {
         <TopBoard />
         <Lootbox />
         <HoldTokens />
-        <Footer />
       </div>
+      <Footer />
     </div>
   );
 };
