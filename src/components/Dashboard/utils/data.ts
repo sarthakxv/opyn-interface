@@ -123,7 +123,7 @@ const groups = [
   },
 ];
 
-const holdTokensData = [
+const holdTokensLevelOne = [
   {
     lineOne: "Mint your",
     lineTwo: "Foxatar",
@@ -146,4 +146,34 @@ const holdTokensData = [
   },
 ];
 
-export { onlineUsers, groups, people, tournament, holdTokensData };
+const holdTokensLevelTwo = [
+  {
+    lineOne: "Optimism oETH",
+    lineTwo: "Holding 200 oETH",
+    src: "/images/rare-card.svg",
+  },
+  {
+    lineOne: "Tweet about",
+    lineTwo: "Optimism",
+    src: "/images/rare-card.svg",
+  },
+  {
+    lineOne: "Hold 50,000",
+    lineTwo: "FOX",
+    src: "/images/rare-card.svg",
+  },
+  {
+    lineOne: "Optimism oETH",
+    lineTwo: "Holding -0.001 oETH",
+    src: "/images/rare-card.svg",
+  },
+];
+
+export {
+  onlineUsers,
+  groups,
+  people,
+  tournament,
+  holdTokensLevelOne,
+  holdTokensLevelTwo,
+};

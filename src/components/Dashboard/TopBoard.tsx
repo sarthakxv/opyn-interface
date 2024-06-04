@@ -5,7 +5,7 @@ import { groups, onlineUsers, people, tournament } from "./utils/data";
 
 const TopBoard = () => {
   return (
-    <div className="flex flex-col gap-6 px-12 pt-[45px]">
+    <div className="flex flex-col gap-6 px-12 py-[45px]">
       <ul
         role="list"
         className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4"
