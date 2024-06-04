@@ -3,7 +3,7 @@ import { holdTokensLevelOne, holdTokensLevelTwo } from "./utils/data";
 
 const HoldTokens = () => {
   return (
-    <div className="w-full px-[60px] py-4 sm:py-5">
+    <div className="w-full px-[60px] py-4 sm:py-5 mb-12 sm:mb-28 md:mb-52">
       {/* Level 1 */}
       <div className="flex flex-col gap-5 py-20">
         <div className="w-full flex flex-col md:flex-row items-center gap-3 justify-between">

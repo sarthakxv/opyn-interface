@@ -5,6 +5,7 @@ import TopBoard from "./TopBoard";
 import Lootbox from "./Lootbox";
 import Image from "next/image";
 import HoldTokens from "./HoldTokens";
+import Footer from "./Footer";
 
 // Default font: Inter
 const inter = Inter({ subsets: ["latin"] });
@@ -22,6 +23,7 @@ const DashboardPage = () => {
         <TopBoard />
         <Lootbox />
         <HoldTokens />
+        <Footer />
       </div>
     </div>
   );
