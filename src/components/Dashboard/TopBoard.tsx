@@ -23,56 +23,55 @@ const TopBoard = () => {
         {/* Claim dragon and XP Stats */}
         <div className="col-span-1 lg:col-span-2">
           <div className="grid grid-rows-1 md:grid-rows-2 lg:grid-rows-none grid-cols-none lg:grid-cols-3 gap-4 min-h-full">
-            <div className="col-span-1 lg:col-span-2">
-              <div className="relative">
-                <Image
-                  src="/images/dragon-card.svg"
-                  alt="dragon"
-                  width={540}
-                  height={390}
-                />
-                <div className="absolute bottom-6 w-full px-2">
-                  <div className="w-full inline-flex justify-between items-center rounded-full p-[2px] bg-[#1C2433D9]/85 border border-[#1C243303]/[0.01]">
-                    <button className="bg-claim-btn hover:scale-105 hover:shadow-xl active:scale-100 transition-transform text-white px-10 py-[19px] rounded-full font-semibold text-2xl leading-7">
-                      Claim
-                    </button>
-                    <span className="font-semibold hidden leading-6 text-sm text-[#6B7197]">
-                      Don&apos;t Miss
-                    </span>
-                    <div className="flex flex-row items-center gap-2 font-bold text-xl leading-6">
-                      <div className="relative">
-                        <Image
-                          src="/images/Progress-circular.svg"
-                          alt="progress"
-                          height={64}
-                          width={64}
-                        />
-                        <span className="absolute inset-0 top-1 flex text-base items-center justify-center">15</span>
-                      </div>
-                      <span>:</span>
-                      <div className="relative">
-                        <Image
-                          src="/images/Progress-circular.svg"
-                          alt="progress"
-                          height={64}
-                          width={64}
-                        />
-                        <span className="absolute inset-0 top-1 flex text-base items-center justify-center">24</span>
-                      </div>
-                      <span>:</span>
-                      <div className="relative">
-                        <Image
-                          src="/images/Progress-circular.svg"
-                          alt="progress"
-                          height={64}
-                          width={64}
-                        />
-                        <span className="absolute inset-0 top-1 flex text-base items-center justify-center">55</span>
-                      </div>
+            <div className="col-span-1 relative lg:col-span-2 bg-cover bg-dragon-stats rounded-3xl">
+              <div className="absolute mx-auto left-0 right-0 bottom-6 w-full px-2 max-w-[497px]">
+                <div className="w-full inline-flex justify-between items-center rounded-full p-[2px] bg-[#1C2433D9]/85 border border-[#1C243303]/[0.01]">
+                  <button className="bg-claim-btn hover:scale-105 hover:shadow-xl active:scale-100 transition-transform text-white px-10 py-[19px] rounded-full font-semibold text-2xl leading-7">
+                    Claim
+                  </button>
+                  <span className="font-semibold hidden leading-6 text-sm text-[#6B7197]">
+                    Don&apos;t Miss
+                  </span>
+                  <div className="flex flex-row items-center gap-2 font-bold text-xl leading-6">
+                    <div className="relative">
+                      <Image
+                        src="/images/Progress-circular.svg"
+                        alt="progress"
+                        height={64}
+                        width={64}
+                      />
+                      <span className="absolute inset-0 top-1 flex text-base items-center justify-center">
+                        15
+                      </span>
+                    </div>
+                    <span>:</span>
+                    <div className="relative">
+                      <Image
+                        src="/images/Progress-circular.svg"
+                        alt="progress"
+                        height={64}
+                        width={64}
+                      />
+                      <span className="absolute inset-0 top-1 flex text-base items-center justify-center">
+                        24
+                      </span>
+                    </div>
+                    <span>:</span>
+                    <div className="relative">
+                      <Image
+                        src="/images/Progress-circular.svg"
+                        alt="progress"
+                        height={64}
+                        width={64}
+                      />
+                      <span className="absolute inset-0 top-1 flex text-base items-center justify-center">
+                        55
+                      </span>
                     </div>
                   </div>
                 </div>
               </div>
+              {/* </div> */}
             </div>
             <div className="col-span-1 flex flex-col items-center gap-6">
               <Stats
@@ -192,7 +191,7 @@ const TopBoard = () => {
         className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4"
       >
         {/* Fox Image */}
-        <div className="col-span-1">
+        <div className="col-span-1 max-w-[377px]">
           <Card className="flex flex-col justify-between px-9 py-10">
             <div aria-label="online-section" className="mb-6">
               <h3 className="inline-flex mb-9 gap-[6px] items-center text-left">
@@ -349,8 +348,12 @@ const TopBoard = () => {
         <div className="col-span-1 flex flex-col gap-6">
           <Card className="flex flex-col items-center p-9">
             <header className="inline-flex text-left w-full justify-between pr-2">
-              <span className="font-semibold text-[#DADADA] text-base leading-[18px]">Tournaments</span>
-              <span className="font-light text-[13px] text-[#75777B]">Points</span>
+              <span className="font-semibold text-[#DADADA] text-base leading-[18px]">
+                Tournaments
+              </span>
+              <span className="font-light text-[13px] text-[#75777B]">
+                Points
+              </span>
             </header>
             <div className="inline-block min-w-full align-middle">
               <table className="min-w-full divide-y divide-gray-700">
@@ -361,7 +364,12 @@ const TopBoard = () => {
                         {index + 1}.
                       </td>
                       <td className="whitespace-nowrap py-3 pl-2 pr-2 text-sm font-medium sm:pl-0">
-                        <Image src={person.profile} alt="profile" height={23} width={23} />
+                        <Image
+                          src={person.profile}
+                          alt="profile"
+                          height={23}
+                          width={23}
+                        />
                       </td>
                       <td className="whitespace-nowrap py-3 pl-2 pr-2 text-sm font-medium sm:pl-0">
                         {person.name}

@@ -16,6 +16,8 @@ const config: Config = {
         "tertiary-text": "#CACCCE",
       },
       backgroundImage: {
+        "fox-profile": "url('/images/profile-fox.svg')",
+        "dragon-stats": "url('/images/dragon-card.svg')",
         "claim-btn":
           "linear-gradient(360deg, #FA9B33 0%, #FF9E18 36.14%, #F6C042 108.33%)",
         "lootbox-btn":
